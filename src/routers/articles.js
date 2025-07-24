@@ -5,7 +5,7 @@ import { validateBody } from '../middlewares/validateBody.js';
 import {
   createArticleSchema,
   updateArticleSchema,
-} from '../validation/contacts.js';
+} from '../validation/articlesSchema.js';
 import { authenticate } from '../middlewares/authenticate.js';
 import { upload } from '../middlewares/multer.js';
 import {

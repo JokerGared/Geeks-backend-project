@@ -3,7 +3,7 @@ import {
   logoutUser,
   refreshSession,
   registerUser,
-} from '../services/auth';
+} from '../services/auth.js';
 
 export const registerUserController = async () => {
   await registerUser();

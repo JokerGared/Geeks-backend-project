@@ -11,7 +11,7 @@ tags:
     description: Operations about articles.
   - name: Auth
     description: Auth operations.
-  - name: Authors
+  - name: Users
     description: Operations about authors.
 servers:
   - url: http://localhost:3000

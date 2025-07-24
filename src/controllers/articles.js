@@ -4,7 +4,7 @@ import {
   getAllArticles,
   getArticleById,
   updateArticle,
-} from '../services/articles';
+} from '../services/articles.js';
 
 export const getAllArticlesController = async () => {
   await getAllArticles();
