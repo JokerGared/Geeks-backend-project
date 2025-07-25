@@ -21,6 +21,15 @@ const usersSchema = new Schema(
     articlesAmount: {
       type: Number,
     },
+    savedArticles: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'article',
+        },
+      ],
+      default: [],
+    },
   },
   {
     versionKey: false,
