@@ -4,6 +4,7 @@ import { isValidObjectId } from 'mongoose';
 export const createArticleSchema = Joi.object({
   title: Joi.string().min(3).max(48),
   article: Joi.string().min(100).max(4000),
+  img: Joi.string().required(),
   date: Joi.string()
     .pattern(/^\d{4}-\d{2}-\d{2}$/)
     .custom((value, helpers) => {
@@ -23,14 +24,13 @@ export const createArticleSchema = Joi.object({
     .messages({
       'string.pattern.base': 'Date should be in format: YYYY-MM-DD',
     }),
-  rate: Joi.boolean().required(),
   ownerId: Joi.string().custom((value, helper) => {
     if (value && !isValidObjectId(value)) {
       return helper.message('User id should be a valid mongo id');
     }
     return true;
   }),
-  desc: Joi.string().min(3).max(48),
+  desc: Joi.string().min(3).max(100),
 });
 
 export const updateArticleSchema = Joi.object({});
