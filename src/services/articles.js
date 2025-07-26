@@ -24,8 +24,44 @@ export const getArticleById = async (articleId) => {
   return article;
 };
 
-export const createArticle = async () => {};
+export const createArticle = async (payload, ownerId) => {
+  const article = await Article.create({
+    ...payload,
+    /* ownerId */
+  });
+  return article;
+};
 
-export const updateArticle = async () => {};
+export const updateArticle = async (
+  articleId,
+  payload,
+  ownerId,
+  options = {},
+) => {
+  const result = await Article.findOneAndUpdate(
+    {
+      _id: articleId,
+      /* ownerId */
+    },
+    payload,
+    {
+      new: true,
+      includeResultMetadata: true,
+      ...options,
+    },
+  );
 
-export const deleteArticle = async () => {};
+  if (!result || !result.value) return null;
+
+  return {
+    article: result.value,
+  };
+};
+
+export const deleteArticle = async (articleId, ownerId) => {
+  const article = await Article.findOneAndDelete({
+    _id: articleId,
+    /* ownerId ,*/
+  });
+  return article;
+};

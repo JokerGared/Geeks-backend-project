@@ -16,17 +16,17 @@ const articlesSchema = new Schema(
     },
     date: {
       type: Date,
-      default: () => new Date().toISOString().split('T')[0],
+      required: true,
     },
     rate: {
       type: Number,
       default: 0,
     },
-    ownerId: {
-      type: Schema.Types.ObjectId,
-      ref: 'user',
-      required: true,
-    },
+    // ownerId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: 'user',
+    //   required: true,
+    // },
     desc: {
       type: String,
     },
