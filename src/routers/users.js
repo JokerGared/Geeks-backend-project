@@ -5,6 +5,7 @@ import { authenticate } from '../middlewares/authenticate.js';
 import {
   addArticleToSavedController,
   deleteArticleFromSavedController,
+  getAuthorsController,
   getSavedArticlesController,
   getUserArticlesController,
   getUserByIdController,
@@ -39,5 +40,7 @@ userRouter.delete(
   isValidId('articleId'),
   ctrlWrapper(deleteArticleFromSavedController),
 );
+
+userRouter.get('/authors/', ctrlWrapper(getAuthorsController));
 
 export default userRouter;
