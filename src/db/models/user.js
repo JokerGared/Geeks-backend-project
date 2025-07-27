@@ -8,7 +8,6 @@ const usersSchema = new Schema(
     },
     email: {
       type: String,
-      email: true,
       unique: true,
       required: true,
     },
@@ -18,11 +17,9 @@ const usersSchema = new Schema(
     },
     avatarUrl: {
       type: String,
-      default: null,
     },
     articlesAmount: {
       type: Number,
-      default: null,
     },
     savedArticles: {
       type: [
@@ -35,7 +32,6 @@ const usersSchema = new Schema(
     },
   },
   {
-    timestamps: true,
     versionKey: false,
   },
 );
