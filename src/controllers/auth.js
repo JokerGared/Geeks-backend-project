@@ -33,7 +33,7 @@ export const registerUserController = async (req, res) => {
 
   const user = await registerUser({
     ...req.body,
-    avatar: avatarUrl,
+    avatarUrl,
   });
 
   const session = await loginUser({ email: user.email, password: req.body.password });
