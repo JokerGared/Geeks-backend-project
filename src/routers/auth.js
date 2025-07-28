@@ -11,11 +11,13 @@ import {
   registerUserSchema,
 } from '../validation/usersSchema.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
+import { uploadLimited } from '../middlewares/multer.js';
 
 const authPage = Router();
 
 authPage.post(
   '/auth/register',
+  uploadLimited.single('avatar'),
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
 );

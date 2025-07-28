@@ -5,6 +5,8 @@ import {
   registerUser,
 } from '../services/auth.js';
 
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
@@ -22,7 +24,17 @@ const clearSessionCookies = (res) => {
 };
 
 export const registerUserController = async (req, res) => {
-  const user = await registerUser(req.body);
+  const photo = req.file;
+  let avatarUrl;
+
+  if (photo) {
+    avatarUrl = await saveFileToCloudinary(photo);
+  }
+
+  const user = await registerUser({
+    ...req.body,
+    avatar: avatarUrl,
+  });
 
   const session = await loginUser({ email: user.email, password: req.body.password });
   setupSession(res, session);
