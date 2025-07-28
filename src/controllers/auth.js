@@ -56,14 +56,14 @@ export const logoutUserController = async (req, res) => {
     await logoutUser(req.cookies.sessionId);
   }
 
-  clearSessionCookies();
+  clearSessionCookies(res);
 
   res.status(204).send();
 };
 
 
 
-export const refreshSessionController = async (req, res) => {
+export const refreshSessionController = async (req, res, next) => {
   try {
     const session = await refreshSession({
       sessionId: req.cookies.sessionId,
@@ -80,14 +80,9 @@ export const refreshSessionController = async (req, res) => {
       },
     });
   } catch (error) {
-    clearSessionCookies();
-
     if (error.status === 401) {
-      return res.status(401).json({
-        status: 401,
-        message: error.message || 'Unauthorized',
-      });
+      clearSessionCookies(res);
     }
-
+    next(error);
   }
 };
