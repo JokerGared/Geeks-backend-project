@@ -26,8 +26,12 @@ authPage.post(
   ctrlWrapper(loginUserController),
 );
 
-authPage.post('/auth/logout', ctrlWrapper(logoutUserController));
+authPage.post(
+  '/auth/logout',
+  ctrlWrapper(logoutUserController));
 
-authPage.post('/auth/refresh', ctrlWrapper(refreshSessionController));
+authPage.post(
+  '/auth/refresh',
+  ctrlWrapper(refreshSessionController));
 
 export default authPage;
