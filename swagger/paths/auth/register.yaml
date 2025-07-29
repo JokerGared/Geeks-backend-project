@@ -1,0 +1,63 @@
+tags:
+  - Auth
+summary: Register user
+operationId: registerUser
+description: 'Register user'
+security:
+  - bearerAuth: []
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - name
+          - email
+          - password
+        properties:
+          name:
+            description: "User's name"
+            type: string
+            example: 'John Doe'
+          email:
+            description: "User's email"
+            type: string
+            example: 'user@example.com'
+          password:
+            description: "User's password"
+            type: string
+            example: 'password'
+          avatar:
+            description: "User's avatar"
+            type: string
+            format: binary
+responses:
+  '201':
+    description: 'Register user'
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully registered and logged in an user!
+            data:
+              type: object
+              properties:
+                user:
+                  $ref: ../../components/schemas/user.yaml
+                accessToken:
+                  type: string
+                  example: A/dVIhgleNOD1t3GFA9JI0WGcusBik/de+oo/dF7
+  # '409':
+  #   $ref: ../../components/responses/409.yaml
+  # '500':
+  #   $ref: ../../components/responses/500.yaml

@@ -1,0 +1,32 @@
+type: object
+required:
+  - _id
+  - name
+  - email
+properties:
+  _id:
+    description: "User's id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  name:
+    description: "User's name"
+    type: string
+    example: 'John Doe'
+  email:
+    description: "User's email"
+    type: string
+    example: 'user@example.com'
+  avatarUrl:
+    description: "Link to User's avatar"
+    type: string
+    example: 'https://res.cloudinary.com/uqwgdu/image/upload/image.png'
+  articlesAmount:
+    description: "User's amount of articles"
+    type: number
+    example: '1'
+  savedArticles:
+    description: "User's saved articles"
+    type: array
+    items:
+      type: string
+    example: '[]'
