@@ -17,11 +17,11 @@ properties:
   title:
     description: 'Article title'
     type: string
-    example: 'John Doe'
+    example: 'When anxiety fills the space: the path to peace'
   article:
     description: 'Contents of the article'
     type: string
-    example: 'In today`s world, where the rapid pace of events and the endless flow of information often rob us of our inner peace, finding harmony in everyday life becomes a real challenge.'
+    example: 'In today`s world, where the rapid pace of events and the endless flow of information often rob us of our inner peace, finding harmony in everyday life becomes a real challenge'
   img:
     description: 'Link to the article image'
     type: string

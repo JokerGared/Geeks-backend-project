@@ -1,0 +1,70 @@
+tags:
+  - Articles
+summary: Create an article
+operationId: createArticle
+description: 'Create an article with form-data including optional image upload'
+security:
+  - bearerAuth: []
+requestBody:
+  required: true
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        required:
+          - title
+          - article
+          - img
+          - date
+        properties:
+          title:
+            description: 'Article title'
+            type: string
+            example: 'When anxiety fills the space: the path to peace'
+          article:
+            description: 'Contents of the article'
+            type: string
+            example: 'In today`s world, where the rapid pace of events and the endless flow of information often rob us of our inner peace, finding harmony in everyday life becomes a real challenge'
+          img:
+            description: 'Link to the article image'
+            type: string
+            format: uri
+            example: 'https://ftp.goit.study/img/harmoniq/772a8103927c4f30b8d8c48avq.jpg'
+          date:
+            description: 'Date of creation of the article'
+            type: string
+            example: '2025-05-05'
+          rate:
+            description: 'Popularity of the article'
+            type: number
+            example: '2'
+          desc:
+            description: 'Short description of the article'
+            type: string
+            format: uri
+            example: https://res.cloudinary.com/drmxffjdy/image/upload/v1752021581/jrt0o1uc0gec25qefjqs.png
+responses:
+  '201':
+    description: Successfully created a article
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully created an article!
+            data:
+              type: object
+              $ref: ../../components/schemas/articles.yaml
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml

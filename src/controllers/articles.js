@@ -48,7 +48,7 @@ export const createArticleController = async (req, res) => {
 
   const article = await createArticle(
     { ...req.body, img: imgUrl },
-    /* req.user._id */
+    req.user._id,
   );
 
   res.status(201).json({
@@ -70,7 +70,7 @@ export const updateArticleController = async (req, res) => {
   const result = await updateArticle(
     articleId,
     { ...req.body, img: imgUrl },
-    /* req.user._id */
+    req.user._id,
   );
 
   if (!result) throw createHttpError(404, 'Article not found');
@@ -84,10 +84,7 @@ export const updateArticleController = async (req, res) => {
 
 export const deleteArticleController = async (req, res) => {
   const { articleId } = req.params;
-  const article = await deleteArticle(
-    articleId,
-    /* req.user._id */
-  );
+  const article = await deleteArticle(articleId, req.user._id);
 
   if (!article) throw createHttpError(404, 'Article not found');
 

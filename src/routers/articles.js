@@ -6,7 +6,7 @@ import {
   createArticleSchema,
   updateArticleSchema,
 } from '../validation/articlesSchema.js';
-// import { authenticate } from '../middlewares/authenticate.js';
+import { authenticate } from '../middlewares/authenticate.js';
 import { upload } from '../middlewares/multer.js';
 import {
   createArticleController,
@@ -29,7 +29,7 @@ articlesRouter.get(
 
 articlesRouter.post(
   '/articles',
-  // authenticate,
+  authenticate,
   upload.single('img'),
   validateBody(createArticleSchema),
   ctrlWrapper(createArticleController),
@@ -37,7 +37,7 @@ articlesRouter.post(
 
 articlesRouter.patch(
   '/articles/:articleId',
-  // authenticate,
+  authenticate,
   upload.single('img'),
   validateBody(updateArticleSchema),
   ctrlWrapper(updateArticleController),
@@ -45,7 +45,7 @@ articlesRouter.patch(
 
 articlesRouter.delete(
   '/articles/:articleId',
-  // authenticate,
+  authenticate,
   ctrlWrapper(deleteArticleController),
 );
 

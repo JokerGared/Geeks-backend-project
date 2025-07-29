@@ -20,14 +20,14 @@ export const getAllArticles = async ({ page = 1, perPage = 10 }) => {
 };
 
 export const getArticleById = async (articleId) => {
-  const article = await Article.findById(articleId);
+  const article = await Article.findById(articleId).populate('ownerId', 'name');
   return article;
 };
 
 export const createArticle = async (payload, ownerId) => {
   const article = await Article.create({
     ...payload,
-    /* ownerId */
+    ownerId,
   });
   return article;
 };
@@ -41,7 +41,7 @@ export const updateArticle = async (
   const result = await Article.findOneAndUpdate(
     {
       _id: articleId,
-      /* ownerId */
+      ownerId,
     },
     payload,
     {
@@ -61,7 +61,7 @@ export const updateArticle = async (
 export const deleteArticle = async (articleId, ownerId) => {
   const article = await Article.findOneAndDelete({
     _id: articleId,
-    /* ownerId ,*/
+    ownerId,
   });
   return article;
 };

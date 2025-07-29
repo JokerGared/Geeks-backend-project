@@ -22,11 +22,11 @@ const articlesSchema = new Schema(
       type: Number,
       default: 0,
     },
-    // ownerId: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: 'user',
-    //   required: true,
-    // },
+    ownerId: {
+      type: Schema.Types.ObjectId,
+      ref: 'user',
+      required: true,
+    },
     desc: {
       type: String,
     },
