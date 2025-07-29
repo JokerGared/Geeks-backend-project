@@ -11,13 +11,13 @@ import {
   registerUserSchema,
 } from '../validation/usersSchema.js';
 import { ctrlWrapper } from '../utils/ctrlWrapper.js';
-import { uploadLimited } from '../middlewares/multer.js';
+import { upload } from '../middlewares/multer.js';
 
 const authPage = Router();
 
 authPage.post(
   '/auth/register',
-  uploadLimited.single('avatar'),
+  upload.single('avatar'),
   validateBody(registerUserSchema),
   ctrlWrapper(registerUserController),
 );
@@ -28,12 +28,8 @@ authPage.post(
   ctrlWrapper(loginUserController),
 );
 
-authPage.post(
-  '/auth/logout',
-  ctrlWrapper(logoutUserController));
+authPage.post('/auth/logout', ctrlWrapper(logoutUserController));
 
-authPage.post(
-  '/auth/refresh',
-  ctrlWrapper(refreshSessionController));
+authPage.post('/auth/refresh', ctrlWrapper(refreshSessionController));
 
 export default authPage;
