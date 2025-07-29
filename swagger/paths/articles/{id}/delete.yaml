@@ -1,0 +1,22 @@
+tags:
+  - Articles
+summary: Delete article by id
+operationId: deleteArticle
+description: 'Delete article by id'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: articleId
+    required: true
+    schema:
+      type: string
+      example: 686809896ac14799aa90b54a
+    description: ID of the article to delete
+responses:
+  '204':
+    description: Article was successfully deleted. No content is returned.
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '404':
+    $ref: ../../../components/responses/404.yaml
