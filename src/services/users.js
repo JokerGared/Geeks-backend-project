@@ -2,7 +2,6 @@ import { User } from '../db/models/user.js';
 import { Article } from '../db/models/article.js';
 import { ARTICLES, SORT_ORDER } from '../constants/index.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
-import createHttpError from 'http-errors';
 
 export const getUserById = async (userId) => {
   const user = await User.findOne({ _id: userId });
@@ -52,15 +51,7 @@ export const getArticles = async ({
     .sort({ [sortBy]: sortOrder })
     .exec();
 
-  const paginationData = calculatePaginationData(articlesCount, perPage, page);
-
-  if (page > paginationData.totalPages && paginationData.totalPages > 0) {
-    return {
-      data: [],
-      ...paginationData,
-      message: `No articles found on page ${page}`,
-    };
-  }
+  const paginationData = calculatePaginationData(articlesCount, page, perPage);
 
   return {
     data: articles,
@@ -69,30 +60,52 @@ export const getArticles = async ({
 };
 
 export const addArticleToSaved = async (userId, articleId) => {
-  return await User.findByIdAndUpdate(
+  const article = await Article.findById(articleId);
+
+  if (!article) {
+    return { code: 404, error: 'Article not found' };
+  }
+
+  const user = await User.findByIdAndUpdate(
     userId,
     {
       $addToSet: { savedArticles: articleId },
     },
     { new: true },
   );
+
+  if (!user) return { code: 404, error: 'User not found' };
+
+  article.rate += 1;
+  await article.save();
+
+  return user;
 };
 
 export const deleteArticleFromSaved = async (userId, articleId) => {
+  const article = await Article.findById(articleId);
+
+  if (!article) {
+    return { code: 404, error: 'Article not found' };
+  }
+
   const user = await User.findById(userId).select('savedArticles');
 
   if (!user) {
-    return createHttpError({ code: 404, error: 'User not found' });
+    return { code: 404, error: 'User not found' };
   }
 
   const isSaved = user.savedArticles.includes(articleId);
 
   if (!isSaved) {
-    return createHttpError({
+    return {
       code: 400,
       error: 'Article is not saved by this user',
-    });
+    };
   }
+
+  article.rate -= 1;
+  await article.save();
 
   const result = await User.findByIdAndUpdate(
     userId,
@@ -116,15 +129,7 @@ export const getAuthors = async ({ page, perPage }) => {
 
   const authors = await authorsQuery.skip(skip).limit(limit).exec();
 
-  const paginationData = calculatePaginationData(authorsCount, perPage, page);
-
-  if (page > paginationData.totalPages && paginationData.totalPages > 0) {
-    return {
-      data: [],
-      ...paginationData,
-      message: `No authors found on page ${page}`,
-    };
-  }
+  const paginationData = calculatePaginationData(authorsCount, page, perPage);
 
   return {
     data: authors,

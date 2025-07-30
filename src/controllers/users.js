@@ -29,7 +29,7 @@ export const getUserByIdController = async (req, res, next) => {
 export const getSavedArticlesController = async (req, res, next) => {
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
-  const { userId } = req.params;
+  const userId = req.user._id;
 
   const result = await getArticles({
     page,
@@ -79,12 +79,13 @@ export const getUserArticlesController = async (req, res, next) => {
 };
 
 export const addArticleToSavedController = async (req, res, next) => {
-  const { userId, articleId } = req.params;
+  const { articleId } = req.params;
+  const userId = req.user._id;
 
   const result = await addArticleToSaved(userId, articleId);
 
-  if (!result) {
-    next(createHttpError(404, 'User not found'));
+  if (result.error) {
+    next(createHttpError(result.code, result.error));
     return;
   }
 
@@ -95,7 +96,8 @@ export const addArticleToSavedController = async (req, res, next) => {
 };
 
 export const deleteArticleFromSavedController = async (req, res, next) => {
-  const { userId, articleId } = req.params;
+  const { articleId } = req.params;
+  const userId = req.user._id;
 
   const result = await deleteArticleFromSaved(userId, articleId);
 
@@ -114,11 +116,6 @@ export const getAuthorsController = async (req, res, next) => {
     page,
     perPage,
   });
-
-  if (!authors) {
-    next(createHttpError(404, 'Authors not found'));
-    return;
-  }
 
   res.status(200).json({
     status: 200,
