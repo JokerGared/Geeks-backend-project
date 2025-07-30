@@ -15,15 +15,18 @@ const userRouter = Router();
 
 userRouter.use('/users/:userId', isValidId('userId'));
 
+userRouter.get('/users', ctrlWrapper(getAuthorsController));
+
 userRouter.get('/users/:userId', ctrlWrapper(getUserByIdController));
 
 userRouter.get(
   '/users/:userId/saved-articles',
-  authenticate,
+  //authenticate,
   ctrlWrapper(getSavedArticlesController),
 );
 userRouter.get(
   '/users/:userId/user-articles',
+  //authenticate,
   ctrlWrapper(getUserArticlesController),
 );
 
@@ -40,7 +43,5 @@ userRouter.delete(
   isValidId('articleId'),
   ctrlWrapper(deleteArticleFromSavedController),
 );
-
-userRouter.get('/authors/', ctrlWrapper(getAuthorsController));
 
 export default userRouter;

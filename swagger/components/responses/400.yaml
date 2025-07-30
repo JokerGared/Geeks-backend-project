@@ -1,0 +1,58 @@
+description: Bad Request
+content:
+  application/json:
+    schema:
+      type: object
+      required:
+        - status
+        - message
+        - data
+      properties:
+        status:
+          type: integer
+          example: 400
+        message:
+          type: string
+          example: BadRequestError
+        data:
+          type: object
+          required:
+            - message
+            - errors
+          properties:
+            message:
+              type: string
+              example: 'Bad Request'
+            errors:
+              type: array
+              items:
+                type: object
+                required:
+                  - message
+                  - path
+                  - type
+                  - context
+                properties:
+                  message:
+                    type: string
+                    example: Title is required
+                  path:
+                    type: array
+                    items:
+                      type: string
+                    example: ['title']
+                  type:
+                    type: string
+                    example: any.required
+                  context:
+                    type: object
+                    required:
+                      - label
+                      - key
+                    properties:
+                      label:
+                        type: string
+                        example: title
+                      key:
+                        type: string
+                        example: title

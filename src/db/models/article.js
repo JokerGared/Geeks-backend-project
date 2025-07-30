@@ -33,6 +33,14 @@ const articlesSchema = new Schema(
   },
   {
     versionKey: false,
+    toJSON: {
+      transform(doc, ret) {
+        if (ret.date) {
+          ret.date = ret.date.toISOString().split('T')[0];
+        }
+        return ret;
+      },
+    },
   },
 );
 

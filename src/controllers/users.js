@@ -15,13 +15,13 @@ export const getUserByIdController = async (req, res, next) => {
   const user = await getUserById(userId);
 
   if (!user) {
-    next(createHttpError(404, 'Contact not found'));
+    next(createHttpError(404, 'User not found'));
     return;
   }
 
   res.status(200).json({
     status: 200,
-    message: `Successfully found a contact with id ${userId}!`,
+    message: `Successfully found a user with id ${userId}!`,
     data: user,
   });
 };

@@ -1,14 +1,23 @@
-export const calculatePaginationData = (count, perPage, page) => {
+import createHttpError from 'http-errors';
+
+export const calculatePaginationData = (count, page, perPage) => {
   const totalPages = Math.ceil(count / perPage);
-  const hasNextPage = Boolean(totalPages - page);
-  const hasPreviousPage = page !== 1;
+  const hasPreviousPage = page !== 1 && page <= totalPages;
+  const hasNextPage = totalPages > page;
+
+  if ((page > totalPages && totalPages > 0) || page < 1) {
+    throw createHttpError(
+      400,
+      `The queried page ${page} exceeds the total page count: ${totalPages}`,
+    );
+  }
 
   return {
     page,
     perPage,
     totalItems: count,
     totalPages,
-    hasNextPage,
     hasPreviousPage,
+    hasNextPage,
   };
 };
