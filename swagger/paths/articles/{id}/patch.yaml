@@ -1,0 +1,72 @@
+tags:
+  - Articles
+summary: Update an article
+operationId: updateArticle
+description: 'Update an article with form-data including image upload'
+security:
+  - bearerAuth: []
+parameters:
+  - in: path
+    name: articleId
+    required: true
+    schema:
+      type: string
+      example: 686809896ac14799aa90b54a
+requestBody:
+  content:
+    multipart/form-data:
+      schema:
+        type: object
+        properties:
+          title:
+            description: Article title
+            type: string
+            example: 'When anxiety fills the space: the path to peace'
+          article:
+            description: Contents of the article
+            type: string
+            example: 'In today`s world, where the rapid pace of events and the endless flow of information often rob us of our inner peace, finding harmony in everyday life becomes a real challenge'
+          img:
+            description: Upload article image (max 1MB)
+            type: string
+            format: binary
+          date:
+            description: Date of creation of the article
+            type: string
+            format: date
+            example: '2025-05-05'
+          rate:
+            description: Popularity of the article
+            type: integer
+            example: 2
+          desc:
+            description: Short description of the article
+            type: string
+            example: Meditations that help restore inner peace
+responses:
+  '200':
+    description: Updates an article
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully updated an article!
+            data:
+              type: object
+              $ref: ../../../components/schemas/articles.yaml
+  '400':
+    $ref: ../../../components/responses/400.yaml
+  '401':
+    $ref: ../../../components/responses/401.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml
