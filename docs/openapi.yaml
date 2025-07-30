@@ -47,6 +47,9 @@ paths:
   /auth/reset-pwd:
     post:
       $ref: ../swagger/paths/auth/resetPassword.yaml
+  /users:
+    get:
+      $ref: ../swagger/paths/users/get.yaml
   /users/{id}:
     get:
       $ref: ../swagger/paths/users/{id}/get.yaml
@@ -61,9 +64,6 @@ paths:
       $ref: ../swagger/paths/users/{id}/saved-articles/{id}/put.yaml
     delete:
       $ref: ../swagger/paths/users/{id}/saved-articles/{id}/delete.yaml
-  /authors:
-    get:
-      $ref: ../swagger/paths/authors/get.yaml
 components:
   securitySchemes:
     bearerAuth:
