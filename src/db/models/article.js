@@ -16,7 +16,7 @@ const articlesSchema = new Schema(
     },
     date: {
       type: Date,
-      required: true,
+      default: () => new Date().toISOString().split('T')[0],
     },
     rate: {
       type: Number,
@@ -33,6 +33,14 @@ const articlesSchema = new Schema(
   },
   {
     versionKey: false,
+    toJSON: {
+      transform(doc, ret) {
+        if (ret.date) {
+          ret.date = ret.date.toISOString().split('T')[0];
+        }
+        return ret;
+      },
+    },
   },
 );
 
