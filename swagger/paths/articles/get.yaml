@@ -3,8 +3,7 @@ tags:
 summary: Get list of articles
 operationId: getArticles
 description: 'Get list of articles with this endpoint'
-security:
-  - bearerAuth: []
+security: []
 parameters:
   - in: query
     name: page
@@ -37,7 +36,7 @@ responses:
             data:
               type: object
               required:
-                - data
+                - articles
                 - page
                 - perPage
                 - totalItems
@@ -45,7 +44,7 @@ responses:
                 - hasNextPage
                 - hasPreviousPage
               properties:
-                data:
+                articles:
                   type: array
                   items:
                     $ref: ../../components/schemas/articles.yaml
@@ -67,5 +66,7 @@ responses:
                 hasPreviousPage:
                   type: boolean
                   example: true
-  '401':
-    $ref: ../../components/responses/401.yaml
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

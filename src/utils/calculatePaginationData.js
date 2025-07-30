@@ -5,7 +5,7 @@ export const calculatePaginationData = (count, page, perPage) => {
   const hasPreviousPage = page !== 1 && page <= totalPages;
   const hasNextPage = totalPages > page;
 
-  if (page > totalPages && page < 1) {
+  if ((page > totalPages && totalPages > 0) || page < 1) {
     throw createHttpError(
       400,
       `The queried page ${page} exceeds the total page count: ${totalPages}`,

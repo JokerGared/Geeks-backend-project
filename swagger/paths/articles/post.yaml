@@ -35,7 +35,7 @@ requestBody:
             example: '2025-05-05'
           rate:
             description: Popularity of the article
-            type: number
+            type: integer
             example: 2
           desc:
             description: Short description of the article
@@ -66,3 +66,5 @@ responses:
     $ref: ../../components/responses/400.yaml
   '401':
     $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml
