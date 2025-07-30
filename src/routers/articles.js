@@ -30,7 +30,7 @@ articlesRouter.get(
 articlesRouter.post(
   '/articles',
   authenticate,
-  upload.single('avatar'),
+  upload.single('img'),
   validateBody(createArticleSchema),
   ctrlWrapper(createArticleController),
 );
@@ -38,7 +38,7 @@ articlesRouter.post(
 articlesRouter.patch(
   '/articles/:articleId',
   authenticate,
-  upload.single('avatar'),
+  upload.single('img'),
   validateBody(updateArticleSchema),
   ctrlWrapper(updateArticleController),
 );

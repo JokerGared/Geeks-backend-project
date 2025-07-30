@@ -22,7 +22,7 @@ paths:
       $ref: ../swagger/paths/articles/get.yaml
     post:
       $ref: ../swagger/paths/articles/post.yaml
-  /articles/{id}:
+  /articles/{articleId}:
     get:
       $ref: ../swagger/paths/articles/{id}/get.yaml
     patch:

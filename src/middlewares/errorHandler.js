@@ -6,14 +6,15 @@ export const errorHandler = (err, req, res, next) => {
     return res.status(400).json({
       status: 400,
       message: 'Validation Error',
-      data: err.message,
+      data: err,
     });
   }
 
   if (isHttpError(err)) {
     return res.status(err.status).json({
       status: err.status,
-      message: err.message,
+      message: err.name,
+      data: err,
     });
   }
 
@@ -26,7 +27,7 @@ export const errorHandler = (err, req, res, next) => {
 
   res.status(500).json({
     status: 500,
-    message: 'Something went wrong',
+    message: 'Something went wrong on the server',
     data: err.message,
   });
 };
