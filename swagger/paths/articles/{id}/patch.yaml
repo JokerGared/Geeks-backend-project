@@ -33,6 +33,7 @@ requestBody:
           date:
             description: Date of creation of the article
             type: string
+            format: date
             example: '2025-05-05'
           rate:
             description: Popularity of the article
