@@ -19,11 +19,12 @@ userRouter.get('/users/:userId', ctrlWrapper(getUserByIdController));
 
 userRouter.get(
   '/users/:userId/saved-articles',
-  authenticate,
+  //authenticate,
   ctrlWrapper(getSavedArticlesController),
 );
 userRouter.get(
   '/users/:userId/user-articles',
+  //authenticate,
   ctrlWrapper(getUserArticlesController),
 );
 

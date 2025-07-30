@@ -1,47 +1,24 @@
 tags:
-  - Users
-summary: Get saved articles for a user
-operationId: getSavedArticles
-description: 'Retrieve a paginated list of saved articles for a specific user'
+  - Authors
+summary: Get list of authors
+operationId: getAuthors
+description: 'Retrieve a paginated list of authors'
 security:
   - bearerAuth: []
 parameters:
-  - in: path
-    name: id
-    required: true
-    schema:
-      type: string
-      example: '65ca67e7ae7f10c88b598384'
   - in: query
     name: page
-    required: false
     schema:
       type: integer
-      minimum: 1
-      example: 1
+    example: 1
   - in: query
     name: perPage
-    required: false
     schema:
       type: integer
-      minimum: 1
-      example: 10
-  - in: query
-    name: sortBy
-    required: false
-    schema:
-      type: string
-      example: 'rate'
-  - in: query
-    name: sortOrder
-    required: false
-    schema:
-      type: string
-      enum: [asc, desc]
-      example: 'desc'
+    example: 10
 responses:
   '200':
-    description: 'Successfully found saved articles'
+    description: Successfully found authors!
     content:
       application/json:
         schema:
@@ -56,7 +33,7 @@ responses:
               example: 200
             message:
               type: string
-              example: Successfully found saved articles!
+              example: Successfully found authors!
             data:
               type: object
               required:
@@ -71,26 +48,24 @@ responses:
                 data:
                   type: array
                   items:
-                    $ref: '../../../components/schemas/article.yaml'
+                    $ref: '../../components/schemas/user.yaml'
                 page:
-                  type: integer
+                  type: number
                   example: 1
                 perPage:
-                  type: integer
+                  type: number
                   example: 10
                 totalItems:
-                  type: integer
-                  example: 1
+                  type: number
+                  example: 25
                 totalPages:
-                  type: integer
-                  example: 1
+                  type: number
+                  example: 3
                 hasNextPage:
                   type: boolean
-                  example: false
+                  example: true
                 hasPreviousPage:
                   type: boolean
                   example: false
-  '400':
-    $ref: '../../../components/responses/400.yaml'
   '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: '../../components/responses/404.yaml'

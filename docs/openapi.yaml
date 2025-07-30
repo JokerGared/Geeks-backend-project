@@ -47,6 +47,23 @@ paths:
   /auth/reset-pwd:
     post:
       $ref: ../swagger/paths/auth/resetPassword.yaml
+  /users/{id}:
+    get:
+      $ref: ../swagger/paths/users/{id}/get.yaml
+  /users/{id}/saved-articles:
+    get:
+      $ref: ../swagger/paths/users/{id}/saved-articles/get.yaml
+  /users/{id}/user-articles:
+    get:
+      $ref: ../swagger/paths/users/{id}/user-articles/get.yaml
+  /users/{id}/saved-articles/{articleId}:
+    put:
+      $ref: ../swagger/paths/users/{id}/saved-articles/{id}/put.yaml
+    delete:
+      $ref: ../swagger/paths/users/{id}/saved-articles/{id}/delete.yaml
+  /authors:
+    get:
+      $ref: ../swagger/paths/authors/get.yaml
 components:
   securitySchemes:
     bearerAuth:
