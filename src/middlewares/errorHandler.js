@@ -31,6 +31,7 @@ export const errorHandler = async (err, req, res, next) => {
     return res.status(500).json({
       status: 500,
       message: 'MongoDB error',
+      data: err.message,
     });
   }
 
