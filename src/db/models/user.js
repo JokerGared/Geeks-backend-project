@@ -20,6 +20,7 @@ const usersSchema = new Schema(
     },
     articlesAmount: {
       type: Number,
+      default: 0,
     },
     savedArticles: {
       type: [

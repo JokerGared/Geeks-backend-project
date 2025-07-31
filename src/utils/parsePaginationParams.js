@@ -1,4 +1,4 @@
-const parseNumber = (number, defaultValue) => {
+export const parseNumber = (number, defaultValue) => {
   const isString = typeof number === 'string';
   if (!isString) return defaultValue;
 
@@ -7,10 +7,10 @@ const parseNumber = (number, defaultValue) => {
     return defaultValue;
   }
 
-  return number;
+  return parsedNumber;
 };
 
-export const parsePaginationParams = (query) => {
+export const parsePaginationParams = (query = {}) => {
   const { page, perPage } = query;
 
   const parsedPage = parseNumber(page, 1);
