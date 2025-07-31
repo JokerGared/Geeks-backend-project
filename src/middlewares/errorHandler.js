@@ -1,7 +1,16 @@
+import fs from 'node:fs/promises';
 import { isHttpError } from 'http-errors';
 import { MongooseError } from 'mongoose';
 
-export const errorHandler = (err, req, res, next) => {
+export const errorHandler = async (err, req, res, next) => {
+  if (req.file?.path) {
+    try {
+      await fs.unlink(req.file.path);
+    } catch (err) {
+      console.error('Failed to delete temp file:', err.message);
+    }
+  }
+
   if (err.isJoi) {
     return res.status(400).json({
       status: 400,
