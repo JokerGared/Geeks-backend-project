@@ -10,10 +10,14 @@ import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     expires: session.refreshTokenValidUntil,
   });
   res.cookie('sessionId', session._id, {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     expires: session.refreshTokenValidUntil,
   });
 };
@@ -36,7 +40,10 @@ export const registerUserController = async (req, res) => {
     avatarUrl,
   });
 
-  const session = await loginUser({ email: user.email, password: req.body.password });
+  const session = await loginUser({
+    email: user.email,
+    password: req.body.password,
+  });
   setupSession(res, session);
 
   res.status(201).json({
@@ -72,8 +79,6 @@ export const logoutUserController = async (req, res) => {
 
   res.status(204).send();
 };
-
-
 
 export const refreshSessionController = async (req, res, next) => {
   try {
