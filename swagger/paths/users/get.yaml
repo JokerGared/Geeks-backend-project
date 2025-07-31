@@ -3,8 +3,7 @@ tags:
 summary: Get list of authors
 operationId: getAuthors
 description: 'Retrieve a paginated list of authors'
-security:
-  - bearerAuth: []
+security: []
 parameters:
   - in: query
     name: page
@@ -67,5 +66,7 @@ responses:
                 hasPreviousPage:
                   type: boolean
                   example: false
-  '404':
-    $ref: '../../components/responses/404.yaml'
+  '400':
+    $ref: '../../components/responses/400.yaml'
+  '500':
+    $ref: '../../components/responses/500.yaml'

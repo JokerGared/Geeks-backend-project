@@ -2,7 +2,7 @@ tags:
   - Users
 summary: Get saved articles for a user
 operationId: getSavedArticles
-description: 'Retrieve a paginated list of saved articles for a specific user'
+description: 'Retrieve a paginated list of saved articles for an authenticated user'
 security:
   - bearerAuth: []
 parameters:
@@ -14,27 +14,23 @@ parameters:
       example: '65ca67e7ae7f10c88b598384'
   - in: query
     name: page
-    required: false
     schema:
       type: integer
       minimum: 1
       example: 1
   - in: query
     name: perPage
-    required: false
     schema:
       type: integer
       minimum: 1
       example: 10
   - in: query
     name: sortBy
-    required: false
     schema:
       type: string
       example: 'rate'
   - in: query
     name: sortOrder
-    required: false
     schema:
       type: string
       enum: [asc, desc]
@@ -71,7 +67,7 @@ responses:
                 data:
                   type: array
                   items:
-                    $ref: '../../../components/schemas/article.yaml'
+                    $ref: ../../../../components/schemas/articles.yaml
                 page:
                   type: integer
                   example: 1
@@ -91,6 +87,6 @@ responses:
                   type: boolean
                   example: false
   '400':
-    $ref: '../../../components/responses/400.yaml'
-  '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: '../../../../components/responses/400.yaml'
+  '500':
+    $ref: '../../../../components/responses/500.yaml'
