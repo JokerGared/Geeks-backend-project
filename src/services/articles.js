@@ -1,4 +1,5 @@
 import { Article } from '../db/models/article.js';
+import { User } from '../db/models/user.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
 export const getAllArticles = async ({ page = 1, perPage = 10 }) => {
@@ -64,4 +65,9 @@ export const deleteArticle = async (articleId, ownerId) => {
     ownerId,
   });
   return article;
+};
+
+export const updateArticlesAmount = async (ownerId) => {
+  const articlesAmount = await Article.countDocuments({ ownerId });
+  await User.findByIdAndUpdate(ownerId, { articlesAmount });
 };

@@ -5,6 +5,7 @@ import {
   getAllArticles,
   getArticleById,
   updateArticle,
+  updateArticlesAmount,
 } from '../services/articles.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
@@ -38,6 +39,7 @@ export const getArticleByIdController = async (req, res) => {
 };
 
 export const createArticleController = async (req, res) => {
+  const ownerId = req.user._id;
   const img = req.file;
 
   if (!img) {
@@ -46,10 +48,9 @@ export const createArticleController = async (req, res) => {
 
   const imgUrl = await saveFileToCloudinary(img);
 
-  const article = await createArticle(
-    { ...req.body, img: imgUrl },
-    req.user._id,
-  );
+  const article = await createArticle({ ...req.body, img: imgUrl }, ownerId);
+
+  await updateArticlesAmount(ownerId);
 
   res.status(201).json({
     status: 201,
@@ -84,9 +85,12 @@ export const updateArticleController = async (req, res) => {
 
 export const deleteArticleController = async (req, res) => {
   const { articleId } = req.params;
+  const ownerId = req.user._id;
   const article = await deleteArticle(articleId, req.user._id);
 
   if (!article) throw createHttpError(404, 'Article not found');
+
+  await updateArticlesAmount(ownerId);
 
   res.status(204).send();
 };
