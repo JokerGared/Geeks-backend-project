@@ -3,8 +3,7 @@ tags:
 summary: Refresh session
 operationId: refreshSession
 description: 'Refresh session'
-security:
-  - bearerAuth: []
+security: []
 responses:
   '200':
     description: 'Refresh session'
@@ -31,7 +30,7 @@ responses:
                 accessToken:
                   type: string
                   example: A/dVIhgleNOD1t3GFA9JI0WGcusBik/de+oo/dF7
-  # '401':
-  #   $ref: ../../components/responses/401.yaml
-  # '500':
-  #   $ref: ../../components/responses/500.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

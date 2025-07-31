@@ -3,8 +3,7 @@ tags:
 summary: Login user
 operationId: loginUser
 description: 'Login user'
-security:
-  - bearerAuth: []
+security: []
 requestBody:
   content:
     application/json:
@@ -24,7 +23,7 @@ requestBody:
             example: 'password'
 responses:
   '200':
-    description: 'Register user'
+    description: 'Login user'
     content:
       application/json:
         schema:
@@ -46,9 +45,9 @@ responses:
                 accessToken:
                   type: string
                   example: A/dVIhgleNOD1t3GFA9JI0WGcusBik/de+oo/dF7
-  # '401':
-  #   $ref: ../../components/responses/401.yaml
-  # '404':
-  #   $ref: ../../components/responses/404.yaml
-  # '500':
-  #   $ref: ../../components/responses/500.yaml
+  '401':
+    $ref: ../../components/responses/401.yaml
+  '404':
+    $ref: ../../components/responses/404.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml

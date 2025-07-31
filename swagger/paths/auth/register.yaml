@@ -3,8 +3,7 @@ tags:
 summary: Register user
 operationId: registerUser
 description: 'Register user'
-security:
-  - bearerAuth: []
+security: []
 requestBody:
   content:
     multipart/form-data:
@@ -57,7 +56,9 @@ responses:
                 accessToken:
                   type: string
                   example: A/dVIhgleNOD1t3GFA9JI0WGcusBik/de+oo/dF7
-  # '409':
-  #   $ref: ../../components/responses/409.yaml
-  # '500':
-  #   $ref: ../../components/responses/500.yaml
+  '400':
+    $ref: ../../components/responses/400.yaml
+  '409':
+    $ref: ../../components/responses/409.yaml
+  '500':
+    $ref: ../../components/responses/500.yaml
