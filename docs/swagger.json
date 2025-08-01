@@ -583,6 +583,9 @@
                         "accessToken": {
                           "type": "string",
                           "example": "A/dVIhgleNOD1t3GFA9JI0WGcusBik/de+oo/dF7"
+                        },
+                        "user": {
+                          "$ref": "#/components/schemas/user"
                         }
                       }
                     }
@@ -590,6 +593,9 @@
                 }
               }
             }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
           },
           "401": {
             "$ref": "#/components/responses/401"
@@ -1349,7 +1355,8 @@
             "description": "List of IDs of articles saved by the user",
             "type": "array",
             "items": {
-              "type": "string"
+              "type": "string",
+              "example": "64b2f9d8a1234567890abcde"
             }
           }
         }
