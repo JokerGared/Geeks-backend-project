@@ -9,7 +9,11 @@ export const getAllArticles = async ({ page = 1, perPage = 10 }) => {
 
   const [articlesCount, articles] = await Promise.all([
     Article.find().merge(articlesQuery).countDocuments(),
-    articlesQuery.skip(offset).limit(perPage).exec(),
+    articlesQuery
+      .skip(offset)
+      .limit(perPage)
+      .populate('ownerId', 'name')
+      .exec(),
   ]);
 
   const paginationData = calculatePaginationData(articlesCount, page, perPage);
