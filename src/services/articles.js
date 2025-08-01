@@ -12,7 +12,7 @@ export const getAllArticles = async ({ page = 1, perPage = 10 }) => {
     articlesQuery
       .skip(offset)
       .limit(perPage)
-      .populate('ownerId', 'name')
+      .populate('ownerId', 'name avatarUrl')
       .exec(),
   ]);
 
