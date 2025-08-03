@@ -44,4 +44,6 @@ const articlesSchema = new Schema(
   },
 );
 
+articlesSchema.index({ title: 'text', desc: 'text', article: 'text' });
+
 export const Article = model('article', articlesSchema);

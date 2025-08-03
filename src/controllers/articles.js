@@ -4,18 +4,23 @@ import {
   deleteArticle,
   getAllArticles,
   getArticleById,
+  getPopularArticles,
   updateArticle,
   updateArticlesAmount,
 } from '../services/articles.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
+import { parseSortParams } from '../utils/parseSortParams.js';
 
 export const getAllArticlesController = async (req, res) => {
   const { page, perPage } = parsePaginationParams(req.query);
+  const { sortOrder, sortBy } = parseSortParams(req.query);
 
   const articles = await getAllArticles({
     page,
     perPage,
+    sortOrder,
+    sortBy,
   });
 
   res.json({
@@ -93,4 +98,14 @@ export const deleteArticleController = async (req, res) => {
   await updateArticlesAmount(ownerId);
 
   res.status(204).send();
+};
+
+export const getPopularArticlesController = async (req, res) => {
+  const articles = await getPopularArticles();
+
+  res.json({
+    status: 200,
+    message: 'Successfully found popular articles!',
+    data: articles,
+  });
 };

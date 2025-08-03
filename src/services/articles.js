@@ -1,15 +1,25 @@
+import { SORT_ORDER } from '../constants/index.js';
 import { Article } from '../db/models/article.js';
 import { User } from '../db/models/user.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
-export const getAllArticles = async ({ page = 1, perPage = 10 }) => {
+export const getAllArticles = async ({
+  page = 1,
+  perPage = 12,
+  sortOrder = SORT_ORDER.ASC,
+  sortBy = '_id',
+}) => {
   const offset = (page - 1) * perPage;
 
   const articlesQuery = Article.find();
 
   const [articlesCount, articles] = await Promise.all([
     Article.find().merge(articlesQuery).countDocuments(),
-    articlesQuery.skip(offset).limit(perPage).exec(),
+    articlesQuery
+      .skip(offset)
+      .limit(perPage)
+      .sort({ [sortBy]: sortOrder })
+      .exec(),
   ]);
 
   const paginationData = calculatePaginationData(articlesCount, page, perPage);
@@ -70,4 +80,15 @@ export const deleteArticle = async (articleId, ownerId) => {
 export const updateArticlesAmount = async (ownerId) => {
   const articlesAmount = await Article.countDocuments({ ownerId });
   await User.findByIdAndUpdate(ownerId, { articlesAmount });
+};
+
+export const getPopularArticles = async () => {
+  const topArticles = await Article.find()
+    .sort({ rate: SORT_ORDER.DESC })
+    .limit(12)
+    .exec();
+
+  return {
+    articles: topArticles,
+  };
 };

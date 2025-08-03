@@ -13,17 +13,22 @@ import {
   deleteArticleController,
   getAllArticlesController,
   getArticleByIdController,
+  getPopularArticlesController,
   updateArticleController,
 } from '../controllers/articles.js';
 
 const articlesRouter = Router();
 
-articlesRouter.use('/articles/:articleId', isValidId('articleId'));
-
 articlesRouter.get('/articles', ctrlWrapper(getAllArticlesController));
 
 articlesRouter.get(
+  '/articles/popular',
+  ctrlWrapper(getPopularArticlesController),
+);
+
+articlesRouter.get(
   '/articles/:articleId',
+  isValidId('articleId'),
   ctrlWrapper(getArticleByIdController),
 );
 
@@ -38,6 +43,7 @@ articlesRouter.post(
 articlesRouter.patch(
   '/articles/:articleId',
   authenticate,
+  isValidId('articleId'),
   upload.single('img'),
   validateBody(updateArticleSchema),
   ctrlWrapper(updateArticleController),
@@ -46,6 +52,7 @@ articlesRouter.patch(
 articlesRouter.delete(
   '/articles/:articleId',
   authenticate,
+  isValidId('articleId'),
   ctrlWrapper(deleteArticleController),
 );
 
