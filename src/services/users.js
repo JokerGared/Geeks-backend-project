@@ -2,6 +2,8 @@ import { User } from '../db/models/user.js';
 import { Article } from '../db/models/article.js';
 import { ARTICLES, SORT_ORDER } from '../constants/index.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
+import { incrementArticleRate } from '../utils/incrementArticleRate.js';
+import { decrementArticleRate } from '../utils/decrementArticleRate.js';
 
 export const getUserById = async (userId) => {
   const user = await User.findOne({ _id: userId });
@@ -76,8 +78,7 @@ export const addArticleToSaved = async (userId, articleId) => {
 
   if (!user) return { code: 404, error: 'User not found' };
 
-  article.rate += 1;
-  await article.save();
+  await incrementArticleRate(articleId);
 
   return user;
 };
@@ -104,8 +105,7 @@ export const deleteArticleFromSaved = async (userId, articleId) => {
     };
   }
 
-  article.rate -= 1;
-  await article.save();
+  await decrementArticleRate(articleId);
 
   const result = await User.findByIdAndUpdate(
     userId,
