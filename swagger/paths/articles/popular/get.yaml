@@ -1,0 +1,37 @@
+tags:
+  - Articles
+summary: Get popular articles
+operationId: getPopularArticles
+description: 'Get top 12 popular articles sorted by rate'
+security: []
+responses:
+  '200':
+    description: Successfully found popular articles!
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found popular articles!
+            data:
+              type: object
+              required:
+                - articles
+              properties:
+                articles:
+                  type: array
+                  items:
+                    $ref: ../../../components/schemas/articles.yaml
+  '400':
+    $ref: ../../../components/responses/400.yaml
+  '500':
+    $ref: ../../../components/responses/500.yaml

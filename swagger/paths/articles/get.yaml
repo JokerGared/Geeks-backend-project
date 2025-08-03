@@ -14,7 +14,7 @@ parameters:
     name: perPage
     schema:
       type: integer
-      example: 10
+      example: 12
 responses:
   '200':
     description: Successfully found articles!
@@ -49,20 +49,20 @@ responses:
                   items:
                     $ref: ../../components/schemas/articles.yaml
                 page:
-                  type: number
+                  type: integer
                   example: 2
                 perPage:
-                  type: number
+                  type: integer
                   example: 4
                 totalItems:
-                  type: number
-                  example: 4
+                  type: integer
+                  example: 20
                 totalPages:
-                  type: number
-                  example: 4
+                  type: integer
+                  example: 5
                 hasNextPage:
                   type: boolean
-                  example: false
+                  example: true
                 hasPreviousPage:
                   type: boolean
                   example: true
