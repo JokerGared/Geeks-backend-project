@@ -7,6 +7,7 @@ security: []
 parameters:
   - in: path
     name: id
+    description: ID of the user which should be retrieved
     required: true
     schema:
       type: string

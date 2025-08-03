@@ -13,11 +13,13 @@ import {
 
 const userRouter = Router();
 
-userRouter.use('/users/:userId', isValidId('userId'));
-
 userRouter.get('/users', ctrlWrapper(getAuthorsController));
 
-userRouter.get('/users/:userId', ctrlWrapper(getUserByIdController));
+userRouter.get(
+  '/users/:userId',
+  isValidId('userId'),
+  ctrlWrapper(getUserByIdController),
+);
 
 userRouter.get(
   '/users/me/saved-articles',
@@ -27,18 +29,19 @@ userRouter.get(
 
 userRouter.get(
   '/users/:userId/user-articles',
+  isValidId('userId'),
   ctrlWrapper(getUserArticlesController),
 );
 
 userRouter.put(
-  '/users/:userId/saved-articles/:articleId',
+  '/users/me/saved-articles/:articleId',
   authenticate,
   isValidId('articleId'),
   ctrlWrapper(addArticleToSavedController),
 );
 
 userRouter.delete(
-  '/users/:userId/saved-articles/:articleId',
+  '/users/me/saved-articles/:articleId',
   authenticate,
   isValidId('articleId'),
   ctrlWrapper(deleteArticleFromSavedController),

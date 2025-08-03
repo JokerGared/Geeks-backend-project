@@ -53,17 +53,17 @@ paths:
   /users/{id}:
     get:
       $ref: ../swagger/paths/users/{id}/get.yaml
-  /users/{id}/saved-articles:
+  /users/me/saved-articles:
     get:
-      $ref: ../swagger/paths/users/{id}/saved-articles/get.yaml
-  /users/{id}/user-articles:
+      $ref: ../swagger/paths/users/me/saved-articles/get.yaml
+  /users/me/user-articles:
     get:
-      $ref: ../swagger/paths/users/{id}/user-articles/get.yaml
-  /users/{id}/saved-articles/{articleId}:
+      $ref: ../swagger/paths/users/me/user-articles/get.yaml
+  /users/me/saved-articles/{articleId}:
     put:
-      $ref: ../swagger/paths/users/{id}/saved-articles/{id}/put.yaml
+      $ref: ../swagger/paths/users/me/saved-articles/{id}/put.yaml
     delete:
-      $ref: ../swagger/paths/users/{id}/saved-articles/{id}/delete.yaml
+      $ref: ../swagger/paths/users/me/saved-articles/{id}/delete.yaml
 components:
   securitySchemes:
     bearerAuth:
