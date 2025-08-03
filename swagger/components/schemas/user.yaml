@@ -1,0 +1,26 @@
+type: object
+required:
+  - name
+  - email
+properties:
+  _id:
+    description: "User's id"
+    type: string
+  name:
+    description: "User's name"
+    type: string
+  email:
+    description: "User's email address"
+    type: string
+  avatarUrl:
+    description: "URL to user's avatar"
+    type: string
+  articlesAmount:
+    description: 'Number of articles saved by the user'
+    type: number
+  savedArticles:
+    description: 'List of IDs of articles saved by the user'
+    type: array
+    items:
+      type: string
+      example: 64b2f9d8a1234567890abcde

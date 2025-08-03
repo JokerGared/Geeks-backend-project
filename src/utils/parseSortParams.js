@@ -3,24 +3,17 @@ import { SORT_ORDER } from '../constants/index.js';
 const parseSortOrder = (sortOrder) => {
   const isKnownOrder = [SORT_ORDER.ASC, SORT_ORDER.DESC].includes(sortOrder);
   if (isKnownOrder) return sortOrder;
+  return SORT_ORDER.ASC;
 };
 
 const parseSortBy = (sortBy) => {
-  const keysOfArticle = [
-    '_id',
-    'title',
-    'desc',
-    'article',
-    'rate',
-    'ownerId',
-    'date',
-  ];
+  const keysOfArticles = ['_id', 'title', 'rate', 'date'];
 
-  if (keysOfArticle.includes(sortBy)) {
+  if (keysOfArticles.includes(sortBy)) {
     return sortBy;
   }
 
-  return '_id';
+  return 'rate';
 };
 
 export const parseSortParams = (query) => {

@@ -5,6 +5,7 @@ import { authenticate } from '../middlewares/authenticate.js';
 import {
   addArticleToSavedController,
   deleteArticleFromSavedController,
+  getAuthorsController,
   getSavedArticlesController,
   getUserArticlesController,
   getUserByIdController,
@@ -13,6 +14,8 @@ import {
 const userRouter = Router();
 
 userRouter.use('/users/:userId', isValidId('userId'));
+
+userRouter.get('/users', ctrlWrapper(getAuthorsController));
 
 userRouter.get('/users/:userId', ctrlWrapper(getUserByIdController));
 
