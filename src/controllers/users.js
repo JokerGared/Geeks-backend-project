@@ -27,6 +27,7 @@ export const getUserByIdController = async (req, res, next) => {
 };
 
 export const getSavedArticlesController = async (req, res, next) => {
+  console.log('req.user:', req.user);
   const { page, perPage } = parsePaginationParams(req.query);
   const { sortBy, sortOrder } = parseSortParams(req.query);
   const userId = req.user._id;

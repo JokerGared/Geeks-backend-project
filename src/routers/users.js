@@ -20,10 +20,11 @@ userRouter.get('/users', ctrlWrapper(getAuthorsController));
 userRouter.get('/users/:userId', ctrlWrapper(getUserByIdController));
 
 userRouter.get(
-  '/users/:userId/saved-articles',
+  '/users/me/saved-articles',
   authenticate,
   ctrlWrapper(getSavedArticlesController),
 );
+
 userRouter.get(
   '/users/:userId/user-articles',
   ctrlWrapper(getUserArticlesController),
