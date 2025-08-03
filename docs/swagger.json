@@ -806,6 +806,7 @@
           {
             "in": "path",
             "name": "id",
+            "description": "ID of the user which should be retrieved",
             "required": true,
             "schema": {
               "type": "string",
@@ -855,7 +856,7 @@
         }
       }
     },
-    "/users/{id}/saved-articles": {
+    "/users/me/saved-articles": {
       "get": {
         "tags": [
           "Users"
@@ -869,15 +870,6 @@
           }
         ],
         "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
-            }
-          },
           {
             "in": "query",
             "name": "page",
@@ -1137,7 +1129,7 @@
         }
       }
     },
-    "/users/{id}/saved-articles/{articleId}": {
+    "/users/me/saved-articles/{articleId}": {
       "put": {
         "tags": [
           "Users"
@@ -1151,15 +1143,6 @@
           }
         ],
         "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
-            }
-          },
           {
             "in": "path",
             "name": "articleId",
@@ -1222,15 +1205,6 @@
           }
         ],
         "parameters": [
-          {
-            "in": "path",
-            "name": "id",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "example": "65ca67e7ae7f10c88b598384"
-            }
-          },
           {
             "in": "path",
             "name": "articleId",

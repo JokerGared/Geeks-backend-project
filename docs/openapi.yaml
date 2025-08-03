@@ -50,9 +50,9 @@ paths:
   /users/me/saved-articles:
     get:
       $ref: ../swagger/paths/users/me/saved-articles/get.yaml
-  /users/me/user-articles:
+  /users/{id}/user-articles:
     get:
-      $ref: ../swagger/paths/users/me/user-articles/get.yaml
+      $ref: ../swagger/paths/users/{id}/user-articles/get.yaml
   /users/me/saved-articles/{articleId}:
     put:
       $ref: ../swagger/paths/users/me/saved-articles/{id}/put.yaml
