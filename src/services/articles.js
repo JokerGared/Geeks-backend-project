@@ -19,6 +19,7 @@ export const getAllArticles = async ({
       .skip(offset)
       .limit(perPage)
       .sort({ [sortBy]: sortOrder })
+      .populate('ownerId', 'name avatarUrl')
       .exec(),
   ]);
 

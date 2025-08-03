@@ -1,0 +1,94 @@
+tags:
+  - Users
+summary: Get user's articles
+operationId: getUserArticles
+description: 'Retrieve a paginated list of articles created by a specific user'
+security: []
+parameters:
+  - in: path
+    name: id
+    description: ID of the user whose articles should be retrieved
+    required: true
+    schema:
+      type: string
+      example: '65ca67e7ae7f10c88b598384'
+  - in: query
+    name: page
+    schema:
+      type: integer
+      minimum: 1
+      example: 1
+  - in: query
+    name: perPage
+    schema:
+      type: integer
+      minimum: 1
+      example: 10
+  - in: query
+    name: sortBy
+    schema:
+      type: string
+      example: 'rate'
+  - in: query
+    name: sortOrder
+    schema:
+      type: string
+      enum: [asc, desc]
+      example: 'desc'
+responses:
+  '200':
+    description: "Successfully found user's articles"
+    content:
+      application/json:
+        schema:
+          type: object
+          required:
+            - status
+            - message
+            - data
+          properties:
+            status:
+              type: integer
+              example: 200
+            message:
+              type: string
+              example: Successfully found user's articles!
+            data:
+              type: object
+              required:
+                - data
+                - page
+                - perPage
+                - totalItems
+                - totalPages
+                - hasNextPage
+                - hasPreviousPage
+              properties:
+                data:
+                  type: array
+                  items:
+                    $ref: '../../../../components/schemas/articles.yaml'
+                page:
+                  type: integer
+                  example: 1
+                perPage:
+                  type: integer
+                  example: 10
+                totalItems:
+                  type: integer
+                  example: 1
+                totalPages:
+                  type: integer
+                  example: 1
+                hasNextPage:
+                  type: boolean
+                  example: false
+                hasPreviousPage:
+                  type: boolean
+                  example: false
+  '400':
+    $ref: '../../../../components/responses/400.yaml'
+  '404':
+    $ref: '../../../../components/responses/404.yaml'
+  '500':
+    $ref: '../../../../components/responses/500.yaml'

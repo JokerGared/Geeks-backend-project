@@ -15,7 +15,7 @@ tags:
     description: Operations about authors.
 servers:
   - url: http://localhost:3000
-  # - url: https://nodejs-hw-mongodb-s5ly.onrender.com
+  - url: https://geeks-backend-project.onrender.com
 paths:
   /articles:
     get:
@@ -41,12 +41,23 @@ paths:
   /auth/refresh:
     post:
       $ref: ../swagger/paths/auth/refreshSession.yaml
-  /auth/send-reset-email:
-    post:
-      $ref: ../swagger/paths/auth/requestResetPwd.yaml
-  /auth/reset-pwd:
-    post:
-      $ref: ../swagger/paths/auth/resetPassword.yaml
+  /users:
+    get:
+      $ref: ../swagger/paths/users/get.yaml
+  /users/{id}:
+    get:
+      $ref: ../swagger/paths/users/{id}/get.yaml
+  /users/{id}/saved-articles:
+    get:
+      $ref: ../swagger/paths/users/{id}/saved-articles/get.yaml
+  /users/{id}/user-articles:
+    get:
+      $ref: ../swagger/paths/users/{id}/user-articles/get.yaml
+  /users/{id}/saved-articles/{articleId}:
+    put:
+      $ref: ../swagger/paths/users/{id}/saved-articles/{id}/put.yaml
+    delete:
+      $ref: ../swagger/paths/users/{id}/saved-articles/{id}/delete.yaml
 components:
   securitySchemes:
     bearerAuth:

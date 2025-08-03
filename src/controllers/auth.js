@@ -10,10 +10,14 @@ import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 const setupSession = (res, session) => {
   res.cookie('refreshToken', session.refreshToken, {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     expires: session.refreshTokenValidUntil,
   });
   res.cookie('sessionId', session._id, {
     httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'lax',
     expires: session.refreshTokenValidUntil,
   });
 };
@@ -36,7 +40,10 @@ export const registerUserController = async (req, res) => {
     avatarUrl,
   });
 
-  const session = await loginUser({ email: user.email, password: req.body.password });
+  const session = await loginUser({
+    email: user.email,
+    password: req.body.password,
+  });
   setupSession(res, session);
 
   res.status(201).json({
@@ -50,15 +57,16 @@ export const registerUserController = async (req, res) => {
 };
 
 export const loginUserController = async (req, res) => {
-  const session = await loginUser(req.body);
+  const data = await loginUser(req.body);
 
-  setupSession(res, session);
+  setupSession(res, data.session);
 
   res.json({
     status: 200,
     message: 'Successfully logged in an user!',
     data: {
-      accessToken: session.accessToken,
+      accessToken: data.session.accessToken,
+      user: data.user,
     },
   });
 };
@@ -72,8 +80,6 @@ export const logoutUserController = async (req, res) => {
 
   res.status(204).send();
 };
-
-
 
 export const refreshSessionController = async (req, res, next) => {
   try {
