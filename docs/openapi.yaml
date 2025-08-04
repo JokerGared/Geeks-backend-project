@@ -29,6 +29,9 @@ paths:
       $ref: ../swagger/paths/articles/{id}/patch.yaml
     delete:
       $ref: ../swagger/paths/articles/{id}/delete.yaml
+  /articles/popular:
+    get:
+      $ref: ../swagger/paths/articles/popular/get.yaml
   /auth/register:
     post:
       $ref: ../swagger/paths/auth/register.yaml
