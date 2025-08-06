@@ -24,3 +24,9 @@ properties:
     items:
       type: string
       example: 64b2f9d8a1234567890abcde
+  subscriptions:
+    description: 'List of IDs of users that the user is subscribed to'
+    type: array
+    items:
+      type: string
+      example: 64b2f9d8a1234567890abcde
