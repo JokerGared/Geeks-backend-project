@@ -40,7 +40,7 @@ export const registerUserController = async (req, res) => {
     avatarUrl,
   });
 
-  const session = await loginUser({
+  const { session } = await loginUser({
     email: user.email,
     password: req.body.password,
   });
