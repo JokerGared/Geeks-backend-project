@@ -7,8 +7,11 @@ import {
   deleteArticleFromSavedController,
   getAuthorsController,
   getSavedArticlesController,
+  getSubscriptionsController,
   getUserArticlesController,
   getUserByIdController,
+  subscribeToAuthorController,
+  unsubscribeFromAuthorController,
 } from '../controllers/users.js';
 
 const userRouter = Router();
@@ -45,6 +48,26 @@ userRouter.delete(
   authenticate,
   isValidId('articleId'),
   ctrlWrapper(deleteArticleFromSavedController),
+);
+
+userRouter.post(
+  '/users/:authorId/subscribe',
+  authenticate,
+  isValidId('authorId'),
+  ctrlWrapper(subscribeToAuthorController),
+);
+
+userRouter.delete(
+  '/users/:authorId/unsubscribe',
+  authenticate,
+  isValidId('authorId'),
+  ctrlWrapper(unsubscribeFromAuthorController),
+);
+
+userRouter.get(
+  '/users/me/subscriptions',
+  authenticate,
+  ctrlWrapper(getSubscriptionsController),
 );
 
 export default userRouter;

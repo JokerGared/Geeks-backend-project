@@ -1,0 +1,23 @@
+tags:
+  - Users
+summary: Unsubscribe from an author
+operationId: unsubscribeFromAuthor
+description: Authenticated user unsubscribes from another user (author).
+parameters:
+  - in: path
+    name: authorId
+    required: true
+    schema:
+      type: string
+    description: ID of the author to unsubscribe from
+security:
+  - bearerAuth: []
+responses:
+  '204':
+    description: Successfully unsubscribed (no content)
+  '404':
+    $ref: ../../../../components/responses/404.yaml
+  '401':
+    $ref: ../../../../components/responses/401.yaml
+  '500':
+    $ref: ../../../../components/responses/500.yaml

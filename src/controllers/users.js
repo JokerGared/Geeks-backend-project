@@ -5,6 +5,9 @@ import {
   getArticles,
   getAuthors,
   getUserById,
+  getUserSubscriptions,
+  subscribeToAuthor,
+  unsubscribeFromAuthor,
 } from '../services/users.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
@@ -122,5 +125,54 @@ export const getAuthorsController = async (req, res, next) => {
     status: 200,
     message: 'Successfully found authors!',
     data: authors,
+  });
+};
+
+export const subscribeToAuthorController = async (req, res, next) => {
+  const userId = req.user._id;
+  const { authorId } = req.params;
+
+  const result = await subscribeToAuthor(userId, authorId);
+
+  if (result.error) {
+    next(createHttpError(result.code, result.error));
+    return;
+  }
+
+  res.status(201).json({
+    status: 201,
+    message: 'Successfully subscribed to author!',
+    data: result,
+  });
+};
+
+export const unsubscribeFromAuthorController = async (req, res, next) => {
+  const userId = req.user._id;
+  const { authorId } = req.params;
+
+  const result = await unsubscribeFromAuthor(userId, authorId);
+
+  if (result.error) {
+    next(createHttpError(result.code, result.error));
+    return;
+  }
+
+  res.status(204).send();
+};
+
+export const getSubscriptionsController = async (req, res, next) => {
+  const userId = req.user._id;
+
+  const result = await getUserSubscriptions(userId);
+
+  if (result.error) {
+    next(createHttpError(result.code, result.error));
+    return;
+  }
+
+  res.json({
+    status: 200,
+    message: 'Successfully fetched subscriptions!',
+    data: result,
   });
 };

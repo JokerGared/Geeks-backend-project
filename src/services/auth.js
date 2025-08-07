@@ -1,6 +1,6 @@
 import bcrypt from 'bcrypt';
 import { randomBytes } from 'crypto';
-import { FIFTEEN_MINUTES, SEVEN_DAYS } from '../constants/timeLimits.js';
+import { FOUR_HOURS, SEVEN_DAYS } from '../constants/timeLimits.js';
 import { Session } from '../db/models/session.js';
 import { User } from '../db/models/user.js';
 import createHttpError from 'http-errors';
@@ -13,7 +13,7 @@ const createSession = async (userId) => {
     userId,
     accessToken,
     refreshToken,
-    accessTokenValidUntil: new Date(Date.now() + FIFTEEN_MINUTES),
+    accessTokenValidUntil: new Date(Date.now() + FOUR_HOURS),
     refreshTokenValidUntil: new Date(Date.now() + SEVEN_DAYS),
   });
 };

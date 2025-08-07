@@ -31,6 +31,15 @@ const usersSchema = new Schema(
       ],
       default: [],
     },
+    subscriptions: {
+      type: [
+        {
+          type: Schema.Types.ObjectId,
+          ref: 'user',
+        },
+      ],
+      default: [],
+    },
   },
   {
     timestamps: true,
