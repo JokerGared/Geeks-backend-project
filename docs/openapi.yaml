@@ -61,6 +61,15 @@ paths:
       $ref: ../swagger/paths/users/me/saved-articles/{id}/put.yaml
     delete:
       $ref: ../swagger/paths/users/me/saved-articles/{id}/delete.yaml
+  /users/me/subscriptions:
+    get:
+      $ref: ../swagger/paths/users/me/subscriptions/get.yaml
+  /users/{authorId}/subscribe:
+    post:
+      $ref: ../swagger/paths/users/{id}/subscribe/post.yaml
+  /users/{authorId}/unsubscribe:
+    delete:
+      $ref: ../swagger/paths/users/{id}/unsubscribe/delete.yaml
 components:
   securitySchemes:
     bearerAuth:

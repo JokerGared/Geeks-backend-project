@@ -136,3 +136,44 @@ export const getAuthors = async ({ page, perPage }) => {
     ...paginationData,
   };
 };
+
+export const subscribeToAuthor = async (userId, authorId) => {
+  if (userId.equals(authorId)) {
+    return { code: 400, error: "You can't subscribe to yourself." };
+  }
+
+  const user = await User.findByIdAndUpdate(
+    userId,
+    { $addToSet: { subscriptions: authorId } },
+    { new: true },
+  ).populate('subscriptions');
+
+  if (!user) {
+    return { code: 404, error: 'User not found' };
+  }
+  return user.subscriptions;
+};
+
+export const unsubscribeFromAuthor = async (userId, authorId) => {
+  const user = await User.findByIdAndUpdate(
+    userId,
+    { $pull: { subscriptions: authorId } },
+    { new: true },
+  ).populate('subscriptions');
+
+  if (!user) {
+    return { code: 404, error: 'User not found' };
+  }
+
+  return user.subscriptions;
+};
+
+export const getUserSubscriptions = async (userId) => {
+  const user = await User.findById(userId).populate('subscriptions');
+
+  if (!user) {
+    return { code: 404, error: 'User not found' };
+  }
+
+  return user.subscriptions;
+};

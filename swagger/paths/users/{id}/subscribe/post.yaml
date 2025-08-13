@@ -1,0 +1,40 @@
+tags:
+  - Users
+summary: Subscribe to an author
+operationId: subscribeToAuthor
+description: Authenticated user subscribes to another user (author).
+parameters:
+  - in: path
+    name: authorId
+    required: true
+    schema:
+      type: string
+    description: ID of the author to subscribe to
+security:
+  - bearerAuth: []
+responses:
+  '201':
+    description: Successfully subscribed to author
+    content:
+      application/json:
+        schema:
+          type: object
+          properties:
+            status:
+              type: integer
+              example: 201
+            message:
+              type: string
+              example: Successfully subscribed to author!
+            data:
+              type: array
+              items:
+                $ref: ../../../../components/schemas/user.yaml
+  '400':
+    $ref: ../../../../components/responses/400.yaml
+  '404':
+    $ref: ../../../../components/responses/404.yaml
+  '401':
+    $ref: ../../../../components/responses/401.yaml
+  '500':
+    $ref: ../../../../components/responses/500.yaml

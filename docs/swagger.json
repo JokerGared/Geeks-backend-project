@@ -1291,6 +1291,164 @@
           }
         }
       }
+    },
+    "/users/me/subscriptions": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Get user subscriptions",
+        "operationId": "getUserSubscriptions",
+        "description": "Returns a list of users the authenticated user is subscribed to.",
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully fetched subscriptions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully fetched subscriptions!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/user"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/users/{authorId}/subscribe": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Subscribe to an author",
+        "operationId": "subscribeToAuthor",
+        "description": "Authenticated user subscribes to another user (author).",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "authorId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the author to subscribe to"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Successfully subscribed to author",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 201
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Successfully subscribed to author!"
+                    },
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/user"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/responses/400"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/users/{authorId}/unsubscribe": {
+      "delete": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Unsubscribe from an author",
+        "operationId": "unsubscribeFromAuthor",
+        "description": "Authenticated user unsubscribes from another user (author).",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "authorId",
+            "required": true,
+            "schema": {
+              "type": "string"
+            },
+            "description": "ID of the author to unsubscribe from"
+          }
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Successfully unsubscribed (no content)"
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          },
+          "404": {
+            "$ref": "#/components/responses/404"
+          },
+          "500": {
+            "$ref": "#/components/responses/500"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -1385,6 +1543,14 @@
           },
           "savedArticles": {
             "description": "List of IDs of articles saved by the user",
+            "type": "array",
+            "items": {
+              "type": "string",
+              "example": "64b2f9d8a1234567890abcde"
+            }
+          },
+          "subscriptions": {
+            "description": "List of IDs of users that the user is subscribed to",
             "type": "array",
             "items": {
               "type": "string",
