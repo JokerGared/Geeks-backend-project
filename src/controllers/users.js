@@ -8,10 +8,12 @@ import {
   getUserSubscriptions,
   subscribeToAuthor,
   unsubscribeFromAuthor,
+  updateUser,
 } from '../services/users.js';
 import { parsePaginationParams } from '../utils/parsePaginationParams.js';
 import { parseSortParams } from '../utils/parseSortParams.js';
 import { ARTICLES } from '../constants/index.js';
+import { saveFileToCloudinary } from '../utils/saveFileToCloudinary.js';
 
 export const getUserByIdController = async (req, res, next) => {
   const { userId } = req.params;
@@ -174,5 +176,30 @@ export const getSubscriptionsController = async (req, res, next) => {
     status: 200,
     message: 'Successfully fetched subscriptions!',
     data: result,
+  });
+};
+
+export const updateUserController = async (req, res) => {
+  console.log('BODY:', req.body);
+  console.log('FILE:', req.file);
+  const userId = req.user._id;
+  const img = req.file;
+  let avatarUrl;
+
+  if (img) {
+    console.log('Uploading to Cloudinary...');
+    avatarUrl = await saveFileToCloudinary(img);
+    console.log('Upload done:', avatarUrl);
+  }
+  console.log('AFTER SAVE FILE');
+  console.log('PAYLOAD:', { ...req.body, avatarUrl });
+  const user = await updateUser(userId, { ...req.body, avatarUrl });
+
+  if (!user) throw createHttpError(404, 'User not found');
+
+  res.json({
+    status: 200,
+    message: 'Successfully updated a user!',
+    data: user,
   });
 };

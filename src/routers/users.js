@@ -12,7 +12,11 @@ import {
   getUserByIdController,
   subscribeToAuthorController,
   unsubscribeFromAuthorController,
+  updateUserController,
 } from '../controllers/users.js';
+import { validateBody } from '../middlewares/validateBody.js';
+import { updateUserSchema } from '../validation/usersSchema.js';
+import { upload } from '../middlewares/multer.js';
 
 const userRouter = Router();
 
@@ -68,6 +72,14 @@ userRouter.get(
   '/users/me/subscriptions',
   authenticate,
   ctrlWrapper(getSubscriptionsController),
+);
+
+userRouter.patch(
+  '/users/me',
+  authenticate,
+  upload.single('avatar'),
+  validateBody(updateUserSchema),
+  ctrlWrapper(updateUserController),
 );
 
 export default userRouter;

@@ -31,3 +31,12 @@ export const loginUserSchema = Joi.object({
     'any.required': 'Password is required',
   }),
 });
+
+export const updateUserSchema = Joi.object({
+  name: Joi.string().min(2).max(32).messages({
+    'string.base': 'Username should be a string',
+    'string.min': 'Username should have at least 2 characters',
+    'string.max': 'Username should have at most 32 characters',
+    'any.required': 'Username is required',
+  }),
+});
