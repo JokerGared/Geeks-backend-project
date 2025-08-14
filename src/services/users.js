@@ -177,3 +177,12 @@ export const getUserSubscriptions = async (userId) => {
 
   return user.subscriptions;
 };
+
+export const updateUser = async (userId, payload) => {
+  const user = await User.findByIdAndUpdate(userId, payload, { new: true });
+
+  if (!user) {
+    return null;
+  }
+  return user;
+};
